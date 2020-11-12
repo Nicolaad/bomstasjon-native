@@ -1,7 +1,7 @@
 import React, { isValidElement, useState } from "react";
 import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 
-import { SearchBar } from "react-native-elements";
+import { Card, SearchBar } from "react-native-elements";
 import { CheckBox } from "react-native-elements";
 
 const SearchBox: React.FC = () => {
@@ -17,8 +17,8 @@ const SearchBox: React.FC = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.titleText}>TollTelleren</Text>
+    <Card>
+      <Card.Title>TollTelleren</Card.Title>
       <TextInput
         style={styles.searchBar}
         placeholder="Type Here..."
@@ -46,14 +46,26 @@ const SearchBox: React.FC = () => {
           checked={kommuneCheck}
           onPress={() => kommuneCheckChange(!kommuneCheck)}
         />
+        <CheckBox
+          center
+          title="Temp"
+          checked={kommuneCheck}
+          onPress={() => kommuneCheckChange(!kommuneCheck)}
+        />
+        <CheckBox
+          center
+          title="Temp"
+          checked={kommuneCheck}
+          onPress={() => kommuneCheckChange(!kommuneCheck)}
+        />
       </View>
-    </View>
+    </Card>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    width: "80vw",
+    //width: "80vw",
   },
   baseText: {
     fontFamily: "Cochin",
@@ -63,8 +75,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   searchBar: {
-    borderWidth: "1px",
-    height: "2em",
+    borderWidth: 1,
+
+    fontSize: "2em",
   },
   filterContainer: {
     display: "flex",
