@@ -76,7 +76,6 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     borderWidth: 1,
-
     fontSize: "2em",
   },
   filterContainer: {

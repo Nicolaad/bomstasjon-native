@@ -22,6 +22,41 @@ export default function App() {
         carPrice={bomData.carPrice}
         truckPrice={bomData.truckPrice}
       ></BomCard>
+      <BomCard
+        name={bomData.name}
+        fylke={bomData.fylke}
+        kommune={bomData.kommune}
+        carPrice={bomData.carPrice}
+        truckPrice={bomData.truckPrice}
+      ></BomCard>
+      <BomCard
+        name={bomData.name}
+        fylke={bomData.fylke}
+        kommune={bomData.kommune}
+        carPrice={bomData.carPrice}
+        truckPrice={bomData.truckPrice}
+      ></BomCard>
+      <BomCard
+        name={bomData.name}
+        fylke={bomData.fylke}
+        kommune={bomData.kommune}
+        carPrice={bomData.carPrice}
+        truckPrice={bomData.truckPrice}
+      ></BomCard>
+      <BomCard
+        name={bomData.name}
+        fylke={bomData.fylke}
+        kommune={bomData.kommune}
+        carPrice={bomData.carPrice}
+        truckPrice={bomData.truckPrice}
+      ></BomCard>
+      <BomCard
+        name={bomData.name}
+        fylke={bomData.fylke}
+        kommune={bomData.kommune}
+        carPrice={bomData.carPrice}
+        truckPrice={bomData.truckPrice}
+      ></BomCard>
     </View>
   );
 }
