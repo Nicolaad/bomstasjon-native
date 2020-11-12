@@ -1,12 +1,27 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import SearchBox from "./components/SearchBox";
+import BomCard from "./components/BomCard";
+
+const bomData = {
+  name: "Bombom",
+  fylke: "viken",
+  kommune: "Bærum",
+  carPrice: 69,
+  truckPrice: 420,
+};
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
       <SearchBox></SearchBox>
+      <BomCard
+        name={bomData.name}
+        fylke={bomData.fylke}
+        kommune={bomData.kommune}
+        carPrice={bomData.carPrice}
+        truckPrice={bomData.truckPrice}
+      ></BomCard>
     </View>
   );
 }
