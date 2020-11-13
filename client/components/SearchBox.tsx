@@ -1,18 +1,8 @@
-import { useLazyQuery } from "@apollo/client";
-import React, { isValidElement, useState } from "react";
-import { StyleSheet, Text, View, TextInput, Button } from "react-native";
-import { useQuery, gql } from "@apollo/client";
+import React, { useState } from "react";
+import { StyleSheet, View, TextInput, Button } from "react-native";
 
-import { Card, SearchBar } from "react-native-elements";
+import { Card } from "react-native-elements";
 import { CheckBox } from "react-native-elements";
-
-const bomData = {
-  name: "Bombom",
-  fylke: "viken",
-  kommune: "Bærum",
-  carPrice: 69,
-  truckPrice: 420,
-};
 
 const SearchBox = ({ navigation }: any) => {
   const [searchText, searchTextChange] = useState(""); //text state
@@ -26,15 +16,6 @@ const SearchBox = ({ navigation }: any) => {
     false;
   };
 
-  const BOMSTASJONER = gql`
-    {
-      bomstasjonerByFylke(FYLKE: "VIKEN") {
-        NAVN_BOMSTASJON
-      }
-    }
-  `;
-
-  let bommstasjoner = useLazyQuery(BOMSTASJONER);
   return (
     <Card>
       <Card.Title>TollTelleren</Card.Title>
