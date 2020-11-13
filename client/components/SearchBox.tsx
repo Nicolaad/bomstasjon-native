@@ -1,10 +1,20 @@
+import { useLazyQuery } from "@apollo/client";
 import React, { isValidElement, useState } from "react";
 import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import { useQuery, gql } from "@apollo/client";
 
 import { Card, SearchBar } from "react-native-elements";
 import { CheckBox } from "react-native-elements";
 
-const SearchBox: React.FC = () => {
+const bomData = {
+  name: "Bombom",
+  fylke: "viken",
+  kommune: "Bærum",
+  carPrice: 69,
+  truckPrice: 420,
+};
+
+const SearchBox = ({ navigation }: any) => {
   const [searchText, searchTextChange] = useState(""); //text state
   const [fylkeCheck, fylkeCheckChange] = useState(false);
   const [kommuneCheck, kommuneCheckChange] = useState(false);
@@ -16,6 +26,15 @@ const SearchBox: React.FC = () => {
     false;
   };
 
+  const BOMSTASJONER = gql`
+    {
+      bomstasjonerByFylke(FYLKE: "VIKEN") {
+        NAVN_BOMSTASJON
+      }
+    }
+  `;
+
+  let bommstasjoner = useLazyQuery(BOMSTASJONER);
   return (
     <Card>
       <Card.Title>TollTelleren</Card.Title>
@@ -27,7 +46,9 @@ const SearchBox: React.FC = () => {
         //lightTheme={true}
       ></TextInput>
       <Button
-        onPress={() => null}
+        onPress={() => {
+          navigation.navigate("Results");
+        }}
         disabled={!isValid()}
         title="Search!"
         color="#841584"
@@ -76,7 +97,6 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     borderWidth: 1,
-    fontSize: "2em",
   },
   filterContainer: {
     display: "flex",

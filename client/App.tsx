@@ -3,6 +3,9 @@ import { StyleSheet, Text, View } from "react-native";
 import SearchBox from "./components/SearchBox";
 import BomCard from "./components/BomCard";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import ResultsDisplay from "./components/ResultsDisplay";
 
 // Initialize Apollo Client
 const client = new ApolloClient({
@@ -10,62 +13,21 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-const bomData = {
-  name: "Bombom",
-  fylke: "viken",
-  kommune: "Bærum",
-  carPrice: 69,
-  truckPrice: 420,
-};
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <ApolloProvider client={client}>
-      <View style={styles.container}>
-        <SearchBox></SearchBox>
-        <BomCard
-          name={bomData.name}
-          fylke={bomData.fylke}
-          kommune={bomData.kommune}
-          carPrice={bomData.carPrice}
-          truckPrice={bomData.truckPrice}
-        ></BomCard>
-        <BomCard
-          name={bomData.name}
-          fylke={bomData.fylke}
-          kommune={bomData.kommune}
-          carPrice={bomData.carPrice}
-          truckPrice={bomData.truckPrice}
-        ></BomCard>
-        <BomCard
-          name={bomData.name}
-          fylke={bomData.fylke}
-          kommune={bomData.kommune}
-          carPrice={bomData.carPrice}
-          truckPrice={bomData.truckPrice}
-        ></BomCard>
-        <BomCard
-          name={bomData.name}
-          fylke={bomData.fylke}
-          kommune={bomData.kommune}
-          carPrice={bomData.carPrice}
-          truckPrice={bomData.truckPrice}
-        ></BomCard>
-        <BomCard
-          name={bomData.name}
-          fylke={bomData.fylke}
-          kommune={bomData.kommune}
-          carPrice={bomData.carPrice}
-          truckPrice={bomData.truckPrice}
-        ></BomCard>
-        <BomCard
-          name={bomData.name}
-          fylke={bomData.fylke}
-          kommune={bomData.kommune}
-          carPrice={bomData.carPrice}
-          truckPrice={bomData.truckPrice}
-        ></BomCard>
-      </View>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Search"
+            component={SearchBox}
+            options={{ title: "Welcome" }}
+          />
+          <Stack.Screen name="Results" component={ResultsDisplay} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </ApolloProvider>
   );
 }
