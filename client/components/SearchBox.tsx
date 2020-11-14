@@ -1,19 +1,36 @@
 import React, { useState } from "react";
 import { StyleSheet, View, TextInput, Button } from "react-native";
-
 import { Card } from "react-native-elements";
 import { CheckBox } from "react-native-elements";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  changeSearch,
+  changeType,
+  selectText,
+  selectType,
+} from "./state/filterSlice";
 
 const SearchBox = ({ navigation }: any) => {
-  const [searchText, searchTextChange] = useState(""); //text state
-  const [fylkeCheck, fylkeCheckChange] = useState(false);
-  const [kommuneCheck, kommuneCheckChange] = useState(false);
+  const filterType = useSelector(selectType);
+  const filterText = useSelector(selectText);
+  const dispatch = useDispatch();
 
-  const isValid = () => {
-    if (searchText) {
+  /**
+   * Dispatch to redux store to update the state
+   */
+  const toggleFilter = (type: string) => {
+    filterType == type
+      ? dispatch(changeType("null"))
+      : dispatch(changeType(type));
+  };
+
+  /*Checks if a filter is specified, and a search text exist */
+  const isInvalid = () => {
+    if (filterType == "null" || filterText.length < 1) {
       return true;
+    } else {
+      return false;
     }
-    false;
   };
 
   return (
@@ -22,15 +39,15 @@ const SearchBox = ({ navigation }: any) => {
       <TextInput
         style={styles.searchBar}
         placeholder="Type Here..."
-        onChangeText={(text) => searchTextChange(text)}
-        value={searchText}
+        onChangeText={(text) => dispatch(changeSearch(text))}
+        value={filterText}
         //lightTheme={true}
       ></TextInput>
       <Button
         onPress={() => {
           navigation.navigate("Results");
         }}
-        disabled={!isValid()}
+        disabled={isInvalid()}
         title="Search!"
         color="#841584"
         accessibilityLabel="Click me to submit the search!"
@@ -38,27 +55,35 @@ const SearchBox = ({ navigation }: any) => {
       <View style={styles.filterContainer}>
         <CheckBox
           center
+          checkedIcon="dot-circle-o"
+          uncheckedIcon="circle-o"
           title="Fylke"
-          checked={fylkeCheck}
-          onPress={() => fylkeCheckChange(!fylkeCheck)}
+          checked={filterType === "Fylke"}
+          onPress={() => toggleFilter("Fylke")}
         />
         <CheckBox
           center
+          checkedIcon="dot-circle-o"
+          uncheckedIcon="circle-o"
           title="Kommune"
-          checked={kommuneCheck}
-          onPress={() => kommuneCheckChange(!kommuneCheck)}
+          checked={filterType === "Kommune"}
+          onPress={() => toggleFilter("Kommune")}
         />
         <CheckBox
           center
+          checkedIcon="dot-circle-o"
+          uncheckedIcon="circle-o"
           title="Temp"
-          checked={kommuneCheck}
-          onPress={() => kommuneCheckChange(!kommuneCheck)}
+          checked={filterType === "Kommune"}
+          onPress={() => toggleFilter("Kommune")}
         />
         <CheckBox
           center
+          checkedIcon="dot-circle-o"
+          uncheckedIcon="circle-o"
           title="Temp"
-          checked={kommuneCheck}
-          onPress={() => kommuneCheckChange(!kommuneCheck)}
+          checked={filterType === "Kommune"}
+          onPress={() => toggleFilter("Kommune")}
         />
       </View>
     </Card>
