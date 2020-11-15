@@ -15,7 +15,6 @@ type bomData = {
   TAKST_STOR_BIL: Number;
 };
 
-//TODO: make it fetch with apollo here, baswed on redux state!
 const ResultDisplay: React.FC = () => {
   const filterType = useSelector(selectType);
   const filterText = useSelector(selectText);
