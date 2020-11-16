@@ -107,52 +107,53 @@ const ResultDisplay: React.FC = () => {
     }
 
     return (
-      <ScrollView>
-        <Modal
-          onBackdropPress={() => setVisible(false)}
-          style={{ flex: 1 }}
-          isVisible={visible}
-        >
-          <Card>
-            <Text>{modalObject?.NAVN_BOMSTASJON}</Text>
-            <Text>
-              {modalObject?.NAVN_BOMPENGEANLEGG_FRA_CS
-                ? modalObject?.NAVN_BOMPENGEANLEGG_FRA_CS
-                : "Ukjent eier"}
-            </Text>
-            <Text>
-              {modalObject?.LINK_TIL_BOMSTASJON
-                ? modalObject?.LINK_TIL_BOMSTASJON
-                : "Ukjent nettside"}
-            </Text>
-          </Card>
-        </Modal>
-        {data.result.bomstasjoner.map((bomData: bomData) => (
-          <View key={bomData.id}>
-            <Pressable onPress={() => enableOverlay(bomData)}>
-              {console.log("id:" + bomData?.id)}
-              <BomCard
-                name={bomData.NAVN_BOMSTASJON}
-                fylke={bomData.FYLKE}
-                kommune={bomData.KOMMUNE}
-                carPrice={bomData.TAKST_LITEN_BIL}
-                truckPrice={bomData.TAKST_STOR_BIL}
-              ></BomCard>
-            </Pressable>
-          </View>
-        ))}
+      <View>
+        <ScrollView contentContainerStyle={{ paddingBottom: 60 }}>
+          <Modal
+            onBackdropPress={() => setVisible(false)}
+            style={{ flex: 1 }}
+            isVisible={visible}
+          >
+            <Card>
+              <Text>{modalObject?.NAVN_BOMSTASJON}</Text>
+              <Text>
+                {modalObject?.NAVN_BOMPENGEANLEGG_FRA_CS
+                  ? modalObject?.NAVN_BOMPENGEANLEGG_FRA_CS
+                  : "Ukjent eier"}
+              </Text>
+              <Text>
+                {modalObject?.LINK_TIL_BOMSTASJON
+                  ? modalObject?.LINK_TIL_BOMSTASJON
+                  : "Ukjent nettside"}
+              </Text>
+            </Card>
+          </Modal>
+          {data.result.bomstasjoner.map((bomData: bomData) => (
+            <View key={bomData.id}>
+              <Pressable onPress={() => enableOverlay(bomData)}>
+                <BomCard
+                  name={bomData.NAVN_BOMSTASJON}
+                  fylke={bomData.FYLKE}
+                  kommune={bomData.KOMMUNE}
+                  carPrice={bomData.TAKST_LITEN_BIL}
+                  truckPrice={bomData.TAKST_STOR_BIL}
+                ></BomCard>
+              </Pressable>
+            </View>
+          ))}
 
-        <Button
-          disabled={data.result.numberOfDocuments <= (page + 1) * 10}
-          title="load more!"
-          onPress={() => setPage(page + 1)}
-        ></Button>
-        <Button
-          disabled={page < 1}
-          title="go back!"
-          onPress={() => setPage(page - 1)}
-        ></Button>
-      </ScrollView>
+          <Button
+            disabled={data.result.numberOfDocuments <= (page + 1) * 10}
+            title="load more!"
+            onPress={() => setPage(page + 1)}
+          ></Button>
+          <Button
+            disabled={page < 1}
+            title="go back!"
+            onPress={() => setPage(page - 1)}
+          ></Button>
+        </ScrollView>
+      </View>
     );
   }
 };
