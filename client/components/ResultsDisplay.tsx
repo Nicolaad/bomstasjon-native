@@ -128,10 +128,10 @@ const ResultDisplay: React.FC = () => {
           </Card>
         </Modal>
         {data.result.bomstasjoner.map((bomData: bomData) => (
-          <View>
+          <View key={bomData.id}>
             <Pressable onPress={() => enableOverlay(bomData)}>
+              {console.log("id:" + bomData?.id)}
               <BomCard
-                key={bomData.id}
                 name={bomData.NAVN_BOMSTASJON}
                 fylke={bomData.FYLKE}
                 kommune={bomData.KOMMUNE}
