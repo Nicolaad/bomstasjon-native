@@ -1,13 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Modal, Pressable } from "react-native";
 import { Card } from "react-native-elements";
 
 type BomCardProps = {
-  name: String;
-  fylke: String;
-  kommune: String;
-  truckPrice: Number;
-  carPrice: Number;
+  name: string;
+  fylke: string;
+  kommune: string;
+  truckPrice: number;
+  carPrice: number;
 };
 
 const BomCard: React.FC<BomCardProps> = (props: BomCardProps) => {
