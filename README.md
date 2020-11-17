@@ -60,13 +60,13 @@ Prosjektet er skrevet utelukket med typescript, med `expo init` til å sette opp
 - Graphql
   - Apollo Client
 
-Jeg prøvde først å finne ferdiglagde komponenter for å raskere kunne utvikle siden. Noen ganger måtte jeg bruke de vanlige React Native komponentene, som inputfield, ettersom alternativene var for tungvint å style og assosieres med annen bruk. Jeg fant i midlertid en stor fordel med eksterne komponenter, nemlig at de jeg brukte var like på både IOS og Android. I kontrast til noen komponenter som f.eks React Native buttons, som bare viste en klikkbar tekst framfor en knapp når jeg testet på en Iphone 8.
+Ettersom vi hadde brukt materialUI i prosjekt 3, som kun støtter React web, så kunne vi ikke gjennbruke komponenter. Jeg prøvde derfor først å finne ferdiglagde komponenter for å raskere kunne utvikle siden. Noen ganger måtte jeg bruke de vanlige React Native komponentene, som inputfield, ettersom alternativene var for tungvint å style og assosieres med annen bruk. Jeg fant i midlertid en til stor fordel med eksterne komponenter, nemlig at de jeg brukte var like på både IOS og Android. I kontrast til noen komponenter som f.eks React Native buttons, som bare viste en klikkbar tekst framfor en knapp når jeg testet på en Iphone 8.
 
 React Native modal gjorde det lett å sette opp en modal popup. En ulempe er at den ødelegger layouten på webversjonen av applikasjonen
 
 React Navigation ble brukt for å implementere en applikasjon med flere siden som man kunne navigere mellom.  
 
-Redux ble brukt til å lagre søkestaten, ettersom jeg ville bruke den på to forskjellige sider, som ellers ville gjort det kronglete. Dette gjorde det lett å flytte stat, og vil også gjøre det enkelt å bygge på appen om jeg skulle ønske ting som sorteringsknappene i et annet vindu.
+Redux ble brukt til å lagre søkestaten, ettersom jeg ville bruke den på to forskjellige sider, som ellers ville gjort det kronglete. Dette gjorde det lett å flytte stat, og vil også gjøre det enkelt å bygge på appen om jeg skulle ønske ting som sorteringsknappene i et annet vindu. Ettersom redux er identisk på React native som for React web, såå kunne jeg gjennbruke mye av oppsettet fra prosjekt 3.
 
 Jeg valgte å bruke Apollo Client, ettersom den ble beskrevet som lettvint å sette opp med minimal konfigurasjon. I tillegg sørger den for automatisk caching og tilrettelegger for pagination.
 
