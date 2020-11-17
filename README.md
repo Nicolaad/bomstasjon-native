@@ -69,20 +69,21 @@ Dette er en test som går over hovedfunskjonene og sjekker at det ser ut til å 
 
 Målet er å finne eieren av den dyreste bommstasjonen for trucker i Stavanger kommune (finnøytunnellen). Bildene illustrerer resutatet etter å ha utført oppgaven.
 
-0. Åpne siden
+0. Åpne siden  
    <img src="./client/tests/images/0.jpg" height="300"/>
-1. Skriver Stavanger i Søkefeltet og huker av kommune
-   <img src="./client/tests/images/1.jpg" height="300"/>
-2. Trykker på "Søk!" knappen
+1. Skriver Stavanger i Søkefeltet og huker av kommune  
    <img src="./client/tests/images/2.jpg" height="300"/>
-3. Trykker på "Truck" og "Synkende"
+2. Trykker på "Søk!" knappen  
    <img src="./client/tests/images/3.jpg" height="300"/>
-4. Klikke på det første bomkortet
-   <img src="./client/tests/images/4.jpg" height="300"/>
-5. Se navnet til eieren i modalen
+3. Trykker på "Truck" og "Synkende"  
    <img src="./client/tests/images/5.jpg" height="300"/>
-6. Klikke ut av modalen
+4. Klikke på det første bomkortet  
    <img src="./client/tests/images/6.jpg" height="300"/>
-7. Scroll nederst og klikk neste side. Scroll øverst, se at det er den 11 dyreste øverst. Trykk tilbake. Se at man er tilbake til før steg 4
+5. Se navnet til eieren i modalen  
    <img src="./client/tests/images/7.jpg" height="300"/>
+6. Klikke ut av modalen  
+   <img src="./client/tests/images/8.jpg" height="300"/>
+7. Scroll nederst og klikk neste side. Scroll øverst, se at det er den 11 dyreste øverst. Trykk tilbake. Se at man er tilbake til før steg 4
+   <img src="./client/tests/images/9.jpg" height="300"/>
+
    Denne testen ble utført både på en Android (samsung A70) og en Iphone 8. Da oppdaget jeg at knappene fra react native ikke var like på begge enhetene, som gjorde at jeg benyttet meg mer av react native elements, som sørget for en likhet mellom systemene.
