@@ -49,6 +49,8 @@ const ResultDisplay: React.FC = () => {
     setVisible(true);
   };
 
+  /*Changes sorting type based on index given from the direction buttongroup.
+   Also sets page to 0 if a change occurs */
   const TypeButtonGroupOnPress = (index: 0 | 1) => {
     if (index == 0) {
       sortType == "TAKST_LITEN_BIL"
@@ -61,8 +63,9 @@ const ResultDisplay: React.FC = () => {
     }
   };
 
+  /*Changes sorting direction based on index given from the direction buttongroup
+  Also sets page to 0 if a change occurs */
   const DirectionButtonGroupOnPress = (index: 0 | 1) => {
-    //car is pressed
     if (index == 0) {
       sortDirection == "asc" ? null : (setSortDirection("asc"), setPage(0));
     } else {
@@ -70,13 +73,14 @@ const ResultDisplay: React.FC = () => {
     }
   };
 
-  let query = getQuery(filterType);
+  //gets the correct query based on filtertype
+  const query = getQuery(filterType);
 
-  //if for some reason a invalid query is sent
-  if (query == null) {
+  //checks if the query is undefined
+  if (query == undefined) {
     return (
       <ScrollView>
-        <Text>Your search is not valid</Text>
+        <Text>The query is invalid (undefined)</Text>
       </ScrollView>
     );
   } else {
@@ -101,6 +105,8 @@ const ResultDisplay: React.FC = () => {
 
     return (
       <ScrollView>
+        {/*Modal that gives additional information of a bomstasjon.
+         It is envoked by button presses on a bomcard*/}
         <Modal
           onBackdropPress={() => setVisible(false)}
           style={{ flex: 1 }}
@@ -128,6 +134,8 @@ const ResultDisplay: React.FC = () => {
             </Text>
           </Card>
         </Modal>
+
+        {}
         <Button
           disabled={page < 1}
           color="red"
