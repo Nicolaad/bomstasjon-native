@@ -1,13 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import SearchBox from "./components/SearchBox";
-
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import ResultsDisplay from "./components/ResultsDisplay";
 import { Provider } from "react-redux";
 import store from "./components/state/store";
+import ResultsDisplay from "./components/ResultsDisplay";
+import SearchBox from "./components/SearchBox";
 
 // Initialize Apollo Client
 const client = new ApolloClient({
@@ -35,12 +33,3 @@ export default function App() {
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
