@@ -23,21 +23,25 @@ Du trenger ikke å sette opp noe backend, da denne kjøres på NTNU sine VM'er. 
 
 ## Hva er egentlig dette prosjektet?
 
-Kort forklart, så er dette en frontend bomstasjonssøkemotor skrevet med React Native. Den lar deg søke på bomstasjoner, basert på et par parametere. Man kan deretter scrolle gjennom dem. De kan også sorteres etter taksttype, både stigende og synkende. Det er også mulig å se mer om en bomstasjon med å trykke på en av bomkortene. Dette vil vise et modalvindu med litt ekstra informasjon, som nettside og eieren av bomstasjonen.
+Kort forklart, så er dette en frontend bomstasjonssøkemotor skrevet med React Native. Den lar deg søke på bomstasjoner, basert på et par parametere. Man kan deretter scrolle gjennom dem. De kan også sorteres etter taksttype, både stigende og synkende. Det er også mulig å se mer om en bomstasjon med å trykke på en av bomkortene. Dette vil vise et modalvindu med litt ekstra informasjon, som nettside og eieren av bomstasjonen. 
 
 ## Innhold of funksjonalitet
 
-### Søkemotor
+### Oppsett
+
+Mesteparten av koden ligger under `client/components`. Der ligger SearchBox og Resultdisplay komponentene, som representerer hver sin side til applikasjonen. Der ligger også BomCard som representerer et dataobjekt i ResultsDisplay. Det ligger også to mapper, state og helpers. Inni state ligger Redux staten som komponentene benytter. I helpers query.tsx som holder hjelpefunksjoner som gir GraphQl spørringer, i tilegg til filen types.tsx som definerer typer. Merk at også App.tsx i Client-mappa er modifisert for å ha Apollo og Redux state, samt sette opp React Navigation.
+
+### Søkemotor (SearchBox)
 
 Søkemotoren er komponentet SearchBox, som består av et inputfelt, 3 checkbokser og en knapp. Når brukeren interagerer med inputfeltet, eller checkboksene, så lagres dette i en Redux slice. Det er først når brukeren trykker submitt, at han blir tatt til en resultatsiden. Jeg valgte å splitte søkesiden fra resultatsiden, ettersom det ga meg en god grunn til å lære mer om react navigation.
 
-### Resultatsiden
+### Resultatsiden (ResultDisplay)
 
-Resultatsiden (ResultDisplay komponentet) leser fra Redux staten og kaller en GraphQL soørring med en Apollo client. Resultatet fra spørringen lastes som BomCard komponenter som vises i en scrollview. Dataen til disse komponentene lastes dynamisk ned i grupper på 10 og 10. Om man scroller neders vil man kunne trykke seg til neste side, gitt det er flere resultater.
+Resultatsiden leser fra Redux staten og kaller en GraphQL spørring med en Apollo client. Resultatet fra spørringen lastes som BomCard komponenter som vises i en scrollview. Dataen til disse komponentene lastes dynamisk ned i grupper på 10 og 10. Om man scroller neders vil man kunne trykke seg til neste side, gitt det er flere resultater.
 
 ### Rafinering av resultat
 
-Øverst på resultatsiden vil man finne to knappegrupper. Disse lar deg sortere bomstasjonene basert på taksttype og om den er stigende eller synkende. Rafineringen vil gjøre en spørring med Apollo, ettersom jeg ikke så noen god måte å implementere dette på uten å fjerne dynamisk nedlasting. Tanken er at man ville måtte hente hele resultatsettet før det er nyttig å rafinere det (f.eks sortering). Merk at tidligere spørringer blir lagret i cache av Apollo, og vil kunne lastes inn uten å måtte utføre en ny spørring til serveren. Det kreves med andre ord ingen ekstra lasting å utføre en sortering som er gjort tidligere.
+Øverst på resultatsiden vil man finne to knappegrupper. Disse lar deg sortere bomstasjonene basert på taksttype og om den er stigende eller synkende. Rafineringen vil utføre en ny spørring med Apollo, ettersom jeg ikke så noen god måte å implementere dette på uten å fjerne dynamisk nedlasting. Tanken er at man ville måtte hente hele resultatsettet før det er nyttig å rafinere det (f.eks sortering). Merk at tidligere spørringer blir lagret i cache av Apollo, og vil kunne lastes inn uten å måtte utføre en ny spørring til serveren. Det kreves med andre ord ingen ekstra lasting å utføre en sortering som er gjort tidligere.
 
 ### Teknologier
 
