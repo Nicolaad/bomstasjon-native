@@ -23,9 +23,9 @@ Du trenger ikke å sette opp noe backend, da denne kjøres på NTNU sine VM'er. 
 
 ## Hva er egentlig dette prosjektet?
 
-Kort forklart, så er dette en frontend bomstasjonssøkemotor skrevet med React Native. Den lar deg søke på bomstasjoner, basert på et par parametere. Man kan deretter scrolle gjennom dem. De kan også sorteres etter taksttype, både stigende og synkende. Det er også mulig å se mer om en bomstasjon med å trykke på en av bomkortene. Dette vil vise et modalvindu med litt ekstra informasjon, som nettside og eieren av bomstasjonen. 
+Kort forklart, så er dette en bomstasjonssøkemotor skrevet med React Native. Den lar deg søke på bomstasjoner, basert på et par parametere. Man kan deretter scrolle gjennom dem. De kan også sorteres etter taksttype, både stigende og synkende. Det er også mulig å se mer om en bomstasjon med å trykke på en av bomkortene. Dette vil vise et modalvindu med litt ekstra informasjon, som nettside og eieren av bomstasjonen. 
 
-## Innhold of funksjonalitet
+## Innhold og funksjonalitet
 
 ### Oppsett
 
@@ -45,7 +45,7 @@ Resultatsiden leser fra Redux staten og kaller en GraphQL spørring med en Apoll
 
 ### Teknologier
 
-Prosjektet er skrevet utelukket med typescript, hvor expo init er brukt for å sette opp prosjektet.
+Prosjektet er skrevet utelukket med typescript, med `expo init` til å sette opp prosjektet.
 
 #### liste over biblioteker
 
@@ -64,11 +64,11 @@ Jeg prøvde først å finne ferdiglagde komponenter for å raskere kunne utvikle
 
 React Native modal gjorde det lett å sette opp en modal popup. En ulempe er at den ødelegger layouten på webversjonen av applikasjonen
 
-React navigation ble brukt for å implementere en applikasjon med flere siden som man kunne navigere mellom.  
+React Navigation ble brukt for å implementere en applikasjon med flere siden som man kunne navigere mellom.  
 
 Redux ble brukt til å lagre søkestaten, ettersom jeg ville bruke den på to forskjellige sider, som ellers ville gjort det kronglete. Dette gjorde det lett å flytte stat, og vil også gjøre det enkelt å bygge på appen om jeg skulle ønske ting som sorteringsknappene i et annet vindu.
 
-Jeg valgte å bruke Apollo, ettersom den ble beskrevet som lettvint å sette opp med minimal konfigurasjon. I tillegg sørger den for automatisk caching og tilrettelegger for pagination.
+Jeg valgte å bruke Apollo Client, ettersom den ble beskrevet som lettvint å sette opp med minimal konfigurasjon. I tillegg sørger den for automatisk caching og tilrettelegger for pagination.
 
 ### Testing
 
@@ -97,8 +97,8 @@ Målet er å finne eieren av den dyreste bommstasjonen for trucker i Stavanger k
 8. Trykk tilbake. Se at man er tilbake til steg 5  
    <img src="./client/tests/images/9.jpg" height="300"/>
 
-  Som sett i bildene, så fungerer alle testene som forventet.   
+  Som sett i bildene, så fungerer alle testene nå som forventet.   
 
-  Denne testen ble utført både på en Android (samsung A70) og en Iphone 8. Da oppdaget jeg at knappene fra react native ikke var like på begge enhetene, som gjorde at jeg benyttet meg mer av React Native Elements, som sørget for en likhet mellom systemene. Jeg håper alt fungerer like likt hos deg:)
+  Denne testen ble utført både på en Android (Samsung A70) og en Iphone 8. Da oppdaget jeg at knappene fra react native ikke var like på begge enhetene, som gjorde at jeg benyttet meg mer av React Native Elements, som sørget for en likhet mellom systemene. Jeg håper alt fungerer like likt hos deg:)
 
 
