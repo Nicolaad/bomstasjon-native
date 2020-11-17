@@ -13,7 +13,7 @@
 
 2. gå inn i client mappen til prosjektet  
    `cd prosjekt-4-lettmelk/client`
-3. kjør npm install
+3. kjør npm install 
    `npm install`
 4. Start expo  
    `expo start`
@@ -33,13 +33,11 @@ Søkemotoren er komponentet SearchBox, som består av et inputfelt, 3 checkbokse
 
 ### Resultatsiden
 
-Resultatsiden (ResultDisplay komponentet) leser fra Redux staten og kaller en query med en Apollo client. Jeg valgte å bruke Apollo, ettersom den ble beskrevet som lettvint å sette opp med minimal konfigurasjon. I tillegg sørger den for automatisk caching og tilrettelegger for pagination.
-
-Resultatet fra Queryen lastes som BomCard komponenter som vises i en scrollview. Disse lastes dynamisk ned i grupper på 10 og 10. Om man scroller neders vil man kunne trykke seg til neste side, gitt det er flere resultater.
+Resultatsiden (ResultDisplay komponentet) leser fra Redux staten og kaller en GraphQL soørring med en Apollo client. Resultatet fra spørringen lastes som BomCard komponenter som vises i en scrollview. Dataen til disse komponentene lastes dynamisk ned i grupper på 10 og 10. Om man scroller neders vil man kunne trykke seg til neste side, gitt det er flere resultater.
 
 ### Rafinering av resultat
 
-Øverst på resultatsiden vil man finne to knappegrupper. Disse lar deg sortere bomstasjonene basert på taksttype og om den er stigende eller synkende. Rafineringen vil gjøre en query med Apollo, men det er fordi jeg ikke så noen god måte å implementere dette på uten å fjerne dynamisk nedlasting. Dette ettersom man ville måtte hente hele resultatsettet før det er nyttig å rafinere det (f.eks sortering). Merk at tidligere querys blir lagret i cache av Apollo, og vil kunne lastes inn uten å måtte utføre en ny spørring til serveren.
+Øverst på resultatsiden vil man finne to knappegrupper. Disse lar deg sortere bomstasjonene basert på taksttype og om den er stigende eller synkende. Rafineringen vil gjøre en spørring med Apollo, ettersom jeg ikke så noen god måte å implementere dette på uten å fjerne dynamisk nedlasting. Tanken er at man ville måtte hente hele resultatsettet før det er nyttig å rafinere det (f.eks sortering). Merk at tidligere spørringer blir lagret i cache av Apollo, og vil kunne lastes inn uten å måtte utføre en ny spørring til serveren. Det kreves med andre ord ingen ekstra lasting å utføre en sortering som er gjort tidligere.
 
 ### Teknologier
 
@@ -48,8 +46,8 @@ Prosjektet er skrevet utelukket med typescript, hvor expo init er brukt for å s
 #### liste over biblioteker
 
 - Komponenter
-  - React native elemets
-  - React native modal
+  - React Native elemets
+  - React Native modal
 - Navigasjon
   - React Navigation
 - State
@@ -58,13 +56,19 @@ Prosjektet er skrevet utelukket med typescript, hvor expo init er brukt for å s
 - Graphql
   - Apollo Client
 
-Jeg prøvde først å finne ferdiglagde komponenter for å raskere kunne utvikle siden. Noen ganger måtte jeg bruke de vanlige react native elementene, som inputfield, ettersom alternativene var for vansklige å style og ga feil assosiasjoner. Jeg fant i midlertid en stor fordel med react native elements, nemlig at de var like på både IOS og Android. I kontrast til noen komponenter som f.eks React native buttons, som bare viste en klikkbar tekst framfor en knapp når jeg testet på en Iphone 8. Dette er den største grunnen til at jeg har brukt tredjepartskomponenter, gitt der det var nødvendig.
+Jeg prøvde først å finne ferdiglagde komponenter for å raskere kunne utvikle siden. Noen ganger måtte jeg bruke de vanlige React Native komponentene, som inputfield, ettersom alternativene var for tungvint å style og assosieres med annen bruk. Jeg fant i midlertid en stor fordel med eksterne komponenter, nemlig at de jeg brukte var like på både IOS og Android. I kontrast til noen komponenter som f.eks React Native buttons, som bare viste en klikkbar tekst framfor en knapp når jeg testet på en Iphone 8.
 
-Jeg brukte Redux til å lagre søkestaten, ettersom jeg viste den vskulel bli brukt på en annen side. Dette gjorde det lett å flytte stat, og vil også gjøre det lettere å skalere appen om jeg skulle ønske ting som sorteringskanppene i et annet vindu.
+React Native modal gjorde det lett å sette opp en modal popup. En ulempe er at den ødelegger layouten på webversjonen av applikasjonen
+
+React navigation ble brukt for å implementere en applikasjon med flere siden som man kunne navigere mellom.  
+
+Redux ble brukt til å lagre søkestaten, ettersom jeg ville bruke den på to forskjellige sider, som ellers ville gjort det kronglete. Dette gjorde det lett å flytte stat, og vil også gjøre det enkelt å bygge på appen om jeg skulle ønske ting som sorteringsknappene i et annet vindu.
+
+Jeg valgte å bruke Apollo, ettersom den ble beskrevet som lettvint å sette opp med minimal konfigurasjon. I tillegg sørger den for automatisk caching og tilrettelegger for pagination.
 
 ### Testing
 
-Utviklingen har for det meste foregått med en Android mobil, men jeg fikk også muligheten til å teste funksjonalitetetn på Iphone. I tillegg til å klikke gjennom alt av funksjonalitet som jeg har lagt til, så lagde jeg også en mer formel manuell test, som er illustrert i bunnen av Readme'en med bilder.
+Utviklingen har for det meste foregått med en Android mobil, men jeg fikk også muligheten til å teste funksjonalitetetn på Iphone. I tillegg til å klikke gjennom alt av funksjonalitet som jeg har lagt til, så lagde jeg også en mer formel manuell test, som er illustrert i bunnen av under med bilder.
 
 #### Ende til ende test
 
@@ -86,7 +90,11 @@ Målet er å finne eieren av den dyreste bommstasjonen for trucker i Stavanger k
    <img src="./client/tests/images/7.jpg" height="300"/>
 7. Scroll nederst og klikk neste side. Se at man er øverst, og ser på den 11 dyreste bommen.  
    <img src="./client/tests/images/8.jpg" height="300"/>
-8. Trykk tilbake. Se at man er tilbake til steg 6  
+8. Trykk tilbake. Se at man er tilbake til steg 5  
    <img src="./client/tests/images/9.jpg" height="300"/>
 
-   Denne testen ble utført både på en Android (samsung A70) og en Iphone 8. Da oppdaget jeg at knappene fra react native ikke var like på begge enhetene, som gjorde at jeg benyttet meg mer av react native elements, som sørget for en likhet mellom systemene.
+  Som sett i bildene, så fungerer alle testene som forventet.   
+
+  Denne testen ble utført både på en Android (samsung A70) og en Iphone 8. Da oppdaget jeg at knappene fra react native ikke var like på begge enhetene, som gjorde at jeg benyttet meg mer av React Native Elements, som sørget for en likhet mellom systemene. Jeg håper alt fungerer like likt hos deg:)
+
+
