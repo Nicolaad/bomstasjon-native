@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { filterType } from "../typer";
+import { filterType } from "./types";
 
 /*
 This is a helper file for storing the querys and supplying the right query with the getQuery method 

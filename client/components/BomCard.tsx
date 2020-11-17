@@ -1,23 +1,15 @@
 import React from "react";
-import { StyleSheet, Text, View, Modal, Pressable } from "react-native";
-import { Card, Icon } from "react-native-elements";
-import { Header } from "react-native/Libraries/NewAppScreen";
+import { StyleSheet, Text, View } from "react-native";
+import { Card } from "react-native-elements";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
-type BomCardProps = {
-  name: string;
-  fylke: string;
-  kommune: string;
-  truckPrice: number;
-  carPrice: number;
-};
+import { BomCardProps } from "./helpers/types";
 
 const BomCard: React.FC<BomCardProps> = (props: BomCardProps) => {
   return (
     <Card
       containerStyle={{
         //inline style, as card does not like to be styled with  StyleSheet.create()
-        backgroundColor: "#0066cc",
+        backgroundColor: "#0066cc", //blue
         borderWidth: 3,
         borderColor: "white",
         borderRadius: 5,
