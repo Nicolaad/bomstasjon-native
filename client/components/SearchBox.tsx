@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { StyleSheet, View, TextInput, Button } from "react-native";
-import { Card } from "react-native-elements";
-import { CheckBox } from "react-native-elements";
+import React from "react";
+import { StyleSheet, View, TextInput } from "react-native";
+import { Button, CheckBox, Card } from "react-native-elements";
 import { useSelector, useDispatch } from "react-redux";
 import {
   changeSearch,
@@ -11,22 +10,22 @@ import {
 } from "./state/filterSlice";
 
 const SearchBox = ({ navigation }: any) => {
+  /*Redux variables for storing and handling the search state.*/
   const filterType = useSelector(selectType);
   const filterText = useSelector(selectText);
   const dispatch = useDispatch();
 
   /**
-   * Dispatch to redux store to update the state
+   * Dispatch to redux store to update the state. Null denotes that nothing is selected
    */
   const toggleFilter = (type: string) => {
-    if (filterType == "All") {
-    }
     filterType == type
       ? dispatch(changeType("null"))
       : dispatch(changeType(type));
   };
 
-  /*Checks if a filter is specified, and a search text exist. If the filtertype is all, the lenght requirement is skipped */
+  /*Checks if a filter is specified, and a search text exist. 
+  If the filtertype is all, the lenght requirement is ommitted */
   const isInvalid = () => {
     return (
       filterType == "null" || (!(filterType == "All") && filterText.length < 1)
@@ -37,14 +36,18 @@ const SearchBox = ({ navigation }: any) => {
     <Card>
       <Card.Title h2={true}>Bom Basen</Card.Title>
       <TextInput
-        style={filterType === "All" ? styles.disabled : styles.searchBar}
+        style={
+          filterType === "All"
+            ? [styles.searchBar, styles.disabled]
+            : styles.searchBar
+        }
         placeholder="Oslo..."
         onChangeText={(text) =>
           filterType === "All" ? null : dispatch(changeSearch(text))
         }
         value={filterText}
-        //lightTheme={true}
-      ></TextInput>
+      />
+      {/*Radio buttons for deciding what type the search is. State is stored with redux*/}
       <View style={styles.filterContainer}>
         <CheckBox
           center
@@ -73,13 +76,16 @@ const SearchBox = ({ navigation }: any) => {
       </View>
 
       <Card.Divider></Card.Divider>
+
+      {/*Search button for submitting the search */}
       <Button
+        buttonStyle={styles.searchButton}
+        titleStyle={styles.searchButtonText}
         onPress={() => {
           navigation.navigate("Resultat");
         }}
         disabled={isInvalid()}
         title="Søk!"
-        color="#0066cc"
         accessibilityLabel="Trykk på meg for å sende inn søket!"
       />
     </Card>
@@ -87,33 +93,41 @@ const SearchBox = ({ navigation }: any) => {
 };
 
 const styles = StyleSheet.create({
-  container: {},
-  baseText: {
-    fontFamily: "Cochin",
-  },
+  //page title style
   titleText: {
     fontSize: 20,
     fontWeight: "bold",
   },
+
+  //searchbar styles
   searchBar: {
     height: 50,
     fontSize: 25,
+    paddingLeft: 15,
     borderWidth: 1,
     marginBottom: 10,
     borderColor: "lightgray",
   },
+  disabled: {
+    backgroundColor: "lightgray",
+  },
+
+  //filter container styles
   filterContainer: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
   },
-  disabled: {
+  filertBox: {
+    flex: 1,
+  },
+
+  //submitt button styles
+  searchButton: {
     height: 50,
-    fontSize: 25,
-    borderWidth: 1,
-    marginBottom: 10,
-    backgroundColor: "lightgray",
-    borderColor: "lightgray",
+  },
+  searchButtonText: {
+    fontSize: 30,
   },
 });
 

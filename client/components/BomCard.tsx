@@ -1,23 +1,19 @@
 import React from "react";
-import { StyleSheet, Text, View, Modal, Pressable } from "react-native";
-import { Card, Icon } from "react-native-elements";
-import { Header } from "react-native/Libraries/NewAppScreen";
+import { StyleSheet, Text, View } from "react-native";
+import { Card } from "react-native-elements";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { BomCardProps } from "./helpers/types";
 
-type BomCardProps = {
-  name: string;
-  fylke: string;
-  kommune: string;
-  truckPrice: number;
-  carPrice: number;
-};
-
+/**
+ * Displays a card detailing the most important features of a bomstasjon,
+ *  in the style mimicking a real bomstasjon-sign
+ */
 const BomCard: React.FC<BomCardProps> = (props: BomCardProps) => {
   return (
     <Card
       containerStyle={{
         //inline style, as card does not like to be styled with  StyleSheet.create()
-        backgroundColor: "#0066cc",
+        backgroundColor: "#0066cc", //blue
         borderWidth: 3,
         borderColor: "white",
         borderRadius: 5,
@@ -25,6 +21,7 @@ const BomCard: React.FC<BomCardProps> = (props: BomCardProps) => {
         marginBottom: 3,
       }}
     >
+      {/*The title and fylke/kommune display */}
       <Card.Title h3={true} style={styles.header}>
         {props.name}
       </Card.Title>
@@ -33,6 +30,8 @@ const BomCard: React.FC<BomCardProps> = (props: BomCardProps) => {
       </Card.FeaturedSubtitle>
 
       <Card.Divider style={styles.divider} />
+
+      {/*The part detailing the price */}
       <View style={styles.priceTable}>
         <View style={styles.vehicleRow}>
           <MaterialCommunityIcons
@@ -63,6 +62,7 @@ const BomCard: React.FC<BomCardProps> = (props: BomCardProps) => {
   );
 };
 
+//setting the styles for the various paths
 const styles = StyleSheet.create({
   header: { color: "white" },
   divider: { backgroundColor: "white", paddingVertical: "1%" },

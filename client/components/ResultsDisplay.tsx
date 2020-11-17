@@ -2,47 +2,29 @@ import React, { useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import BomCard from "./BomCard";
 import { useQuery } from "@apollo/client";
-import {
-  ActivityIndicator,
-  Text,
-  Button,
-  View,
-  Pressable,
-  StyleSheet,
-} from "react-native";
+import { ActivityIndicator, Text, View, Pressable } from "react-native";
 import { useSelector } from "react-redux";
 import { selectText, selectType } from "./state/filterSlice";
 import Modal from "react-native-modal";
-import { Card, ButtonGroup } from "react-native-elements";
-import { getQuery } from "./querys/querys";
-import { filterType, takstType } from "./typer";
-
-type bomData = {
-  id: string;
-  NAVN_BOMSTASJON: string;
-  FYLKE: string;
-  KOMMUNE: string;
-  TAKST_LITEN_BIL: number;
-  TAKST_STOR_BIL: number;
-  NAVN_BOMPENGEANLEGG_FRA_CS: string;
-  LINK_TIL_BOMSTASJON: string;
-  VEGKATEGORI: string;
-};
-type queryData = {
-  result: {
-    numberOfDocuments: number;
-    bomstasjoner: bomData[];
-  };
-};
+import { Card, ButtonGroup, Button } from "react-native-elements";
+import { getQuery } from "./helpers/querys";
+import { filterType, takstType, bomData, queryData } from "./helpers/types";
 
 const ResultDisplay: React.FC = () => {
+  //state from redux used for query
   const filterType: filterType = useSelector(selectType);
   const filterText: string = useSelector(selectText);
-  const [page, setPage] = useState<number>(0); //state used to keep track of current loaded page, and load next query
-  const [visible, setVisible] = useState<true | false>(false);
-  const [modalObject, setModalObject] = useState<bomData | undefined>();
+
+  //state used to keep track of current loaded page, and load next query
+  const [page, setPage] = useState<number>(0);
+
+  //state for which direction to sort, and on what type
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const [sortType, setSortType] = useState<takstType>("TAKST_LITEN_BIL");
+
+  //Used for modal to show/hide, and specify what data to show
+  const [visible, setVisible] = useState<true | false>(false);
+  const [modalObject, setModalObject] = useState<bomData | undefined>();
 
   const enableOverlay = (bomData: bomData) => {
     setModalObject(bomData);
@@ -84,6 +66,7 @@ const ResultDisplay: React.FC = () => {
       </ScrollView>
     );
   } else {
+    //Calls query
     const { error, loading, data } = useQuery<queryData>(query, {
       variables: {
         text: filterText,
@@ -94,6 +77,7 @@ const ResultDisplay: React.FC = () => {
       },
     });
 
+    //if query gives an error or is loading
     if (loading) {
       return <ActivityIndicator size="large" />;
     } else if (error) {
@@ -135,25 +119,29 @@ const ResultDisplay: React.FC = () => {
           </Card>
         </Modal>
 
-        {}
-        <Button
-          disabled={page < 1}
-          color="red"
-          title="Bla tilbake"
-          onPress={() => setPage(page - 1)}
-        ></Button>
+        {/*Button groups used specifying sorting*/}
         <ButtonGroup
           onPress={TypeButtonGroupOnPress}
           selectedIndex={sortType == "TAKST_LITEN_BIL" ? 0 : 1}
           buttons={["Bil", "Truck"]}
-          containerStyle={{ height: 100 }}
+          containerStyle={{ height: 50 }}
         />
         <ButtonGroup
           onPress={DirectionButtonGroupOnPress}
           selectedIndex={sortDirection == "asc" ? 0 : 1}
           buttons={["Stigende", "Synkende"]}
-          containerStyle={{ height: 100 }}
+          containerStyle={{ height: 50 }}
         />
+
+        {/*goes back to previous page on press, by changing page stat */}
+        <Button
+          disabled={page < 1}
+          buttonStyle={{ backgroundColor: "red", height: 60 }}
+          title="Bla tilbake"
+          onPress={() => setPage(page - 1)}
+        ></Button>
+
+        {/*generation of bomCards, which are pressable and invokes a modal */}
         {data.result.bomstasjoner.map((bomData: bomData) => (
           <View key={bomData.id}>
             <Pressable onPress={() => enableOverlay(bomData)}>
@@ -167,8 +155,11 @@ const ResultDisplay: React.FC = () => {
             </Pressable>
           </View>
         ))}
+
+        {/*Turn to the next page by changing page state */}
         <Button
-          color="green"
+          containerStyle={{ marginTop: 20 }}
+          buttonStyle={{ backgroundColor: "green", height: 70 }}
           disabled={data.result.numberOfDocuments <= (page + 1) * 10}
           title="Se flere!"
           onPress={() => setPage(page + 1)}

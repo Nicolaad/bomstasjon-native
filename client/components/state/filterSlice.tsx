@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+/* Redux slice for storing the search parameters (text = search, type = filterType)) */
+
 export const slice = createSlice({
   name: "filter",
   initialState: {
