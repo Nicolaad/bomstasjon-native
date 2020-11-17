@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import BomCard from "./BomCard";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import {
   ActivityIndicator,
   Text,
@@ -13,7 +13,9 @@ import {
 import { useSelector } from "react-redux";
 import { selectText, selectType } from "./state/filterSlice";
 import Modal from "react-native-modal";
-import { Card } from "react-native-elements";
+import { Card, ButtonGroup } from "react-native-elements";
+import { getQuery } from "./querys/querys";
+import { filterType, takstType } from "./typer";
 
 type bomData = {
   id: string;
@@ -34,86 +36,51 @@ type queryData = {
 };
 
 const ResultDisplay: React.FC = () => {
-  const filterType = useSelector<string>(selectType);
-  const filterText = useSelector<string>(selectText);
+  const filterType: filterType = useSelector(selectType);
+  const filterText: string = useSelector(selectText);
   const [page, setPage] = useState<number>(0); //state used to keep track of current loaded page, and load next query
   const [visible, setVisible] = useState<true | false>(false);
   const [modalObject, setModalObject] = useState<bomData | undefined>();
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [sortType, setSortType] = useState<takstType>("TAKST_LITEN_BIL");
 
   const enableOverlay = (bomData: bomData) => {
     setModalObject(bomData);
     setVisible(true);
   };
 
-  let query;
+  /*Changes sorting type based on index given from the direction buttongroup.
+   Also sets page to 0 if a change occurs */
+  const TypeButtonGroupOnPress = (index: 0 | 1) => {
+    if (index == 0) {
+      sortType == "TAKST_LITEN_BIL"
+        ? null
+        : (setSortType("TAKST_LITEN_BIL"), setPage(0));
+    } else {
+      sortType == "TAKST_STOR_BIL"
+        ? null
+        : (setSortType("TAKST_STOR_BIL"), setPage(0));
+    }
+  };
 
-  //Prepares query based on filtertype. TODO: extract this to tidy up file
-  if (filterType == "Fylke") {
-    query = gql`
-      query boms($text: String, $offset: Int) {
-        result: getBomstasjoner(FYLKE: $text, start: $offset) {
-          numberOfDocuments
-          bomstasjoner {
-            id
-            NAVN_BOMSTASJON
-            FYLKE
-            KOMMUNE
-            TAKST_STOR_BIL
-            TAKST_LITEN_BIL
-            NAVN_BOMPENGEANLEGG_FRA_CS
-            LINK_TIL_BOMSTASJON
-            VEGKATEGORI
-          }
-        }
-      }
-    `;
-  } else if (filterType == "Kommune") {
-    query = gql`
-      query boms($text: String, $offset: Int) {
-        result: getBomstasjoner(KOMMUNE: $text, start: $offset) {
-          numberOfDocuments
-          bomstasjoner {
-            id
-            NAVN_BOMSTASJON
-            FYLKE
-            KOMMUNE
-            TAKST_STOR_BIL
-            TAKST_LITEN_BIL
-            NAVN_BOMPENGEANLEGG_FRA_CS
-            LINK_TIL_BOMSTASJON
-            VEGKATEGORI
-          }
-        }
-      }
-    `;
-  } else if (filterType == "All") {
-    query = gql`
-      query boms($offset: Int) {
-        result: getBomstasjoner(start: $offset) {
-          numberOfDocuments
-          bomstasjoner {
-            id
-            NAVN_BOMSTASJON
-            FYLKE
-            KOMMUNE
-            TAKST_STOR_BIL
-            TAKST_LITEN_BIL
-            NAVN_BOMPENGEANLEGG_FRA_CS
-            LINK_TIL_BOMSTASJON
-            VEGKATEGORI
-          }
-        }
-      }
-    `;
-  } else {
-    query = null;
-  }
+  /*Changes sorting direction based on index given from the direction buttongroup
+  Also sets page to 0 if a change occurs */
+  const DirectionButtonGroupOnPress = (index: 0 | 1) => {
+    if (index == 0) {
+      sortDirection == "asc" ? null : (setSortDirection("asc"), setPage(0));
+    } else {
+      sortDirection == "desc" ? null : (setSortDirection("desc"), setPage(0));
+    }
+  };
 
-  //if for some reason a invalid query is sent
-  if (query == null) {
+  //gets the correct query based on filtertype
+  const query = getQuery(filterType);
+
+  //checks if the query is undefined
+  if (query == undefined) {
     return (
       <ScrollView>
-        <Text>Your search is not valid</Text>
+        <Text>The query is invalid (undefined)</Text>
       </ScrollView>
     );
   } else {
@@ -122,6 +89,8 @@ const ResultDisplay: React.FC = () => {
         text: filterText,
         offset: 10 * page,
         limit: 10,
+        sortType: sortType,
+        sortDirection: sortDirection,
       },
     });
 
@@ -130,10 +99,14 @@ const ResultDisplay: React.FC = () => {
     } else if (error) {
       console.log(error);
       return <Text>Whops, an error occured! {error}</Text>;
+    } else if (data == undefined) {
+      return <Text>Whops, an error occured! (data is undefined!)</Text>;
     }
-    console.log(data?.result);
+
     return (
       <ScrollView>
+        {/*Modal that gives additional information of a bomstasjon.
+         It is envoked by button presses on a bomcard*/}
         <Modal
           onBackdropPress={() => setVisible(false)}
           style={{ flex: 1 }}
@@ -161,12 +134,26 @@ const ResultDisplay: React.FC = () => {
             </Text>
           </Card>
         </Modal>
+
+        {}
         <Button
           disabled={page < 1}
           color="red"
           title="Bla tilbake"
           onPress={() => setPage(page - 1)}
         ></Button>
+        <ButtonGroup
+          onPress={TypeButtonGroupOnPress}
+          selectedIndex={sortType == "TAKST_LITEN_BIL" ? 0 : 1}
+          buttons={["Bil", "Truck"]}
+          containerStyle={{ height: 100 }}
+        />
+        <ButtonGroup
+          onPress={DirectionButtonGroupOnPress}
+          selectedIndex={sortDirection == "asc" ? 0 : 1}
+          buttons={["Stigende", "Synkende"]}
+          containerStyle={{ height: 100 }}
+        />
         {data.result.bomstasjoner.map((bomData: bomData) => (
           <View key={bomData.id}>
             <Pressable onPress={() => enableOverlay(bomData)}>
