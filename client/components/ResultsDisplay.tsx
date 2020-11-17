@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import BomCard from "./BomCard";
 import { useQuery, gql } from "@apollo/client";
-import { ActivityIndicator, Text, Button, View, Pressable } from "react-native";
+import {
+  ActivityIndicator,
+  Text,
+  Button,
+  View,
+  Pressable,
+  StyleSheet,
+} from "react-native";
 import { useSelector } from "react-redux";
 import { selectText, selectType } from "./state/filterSlice";
 import Modal from "react-native-modal";
@@ -79,6 +86,25 @@ const ResultDisplay: React.FC = () => {
         }
       }
     `;
+  } else if (filterType == "All") {
+    query = gql`
+      query boms($offset: Int) {
+        result: getBomstasjoner(start: $offset) {
+          numberOfDocuments
+          bomstasjoner {
+            id
+            NAVN_BOMSTASJON
+            FYLKE
+            KOMMUNE
+            TAKST_STOR_BIL
+            TAKST_LITEN_BIL
+            NAVN_BOMPENGEANLEGG_FRA_CS
+            LINK_TIL_BOMSTASJON
+            VEGKATEGORI
+          }
+        }
+      }
+    `;
   } else {
     query = null;
   }
@@ -105,7 +131,7 @@ const ResultDisplay: React.FC = () => {
       console.log(error);
       return <Text>Whops, an error occured! {error}</Text>;
     }
-
+    console.log(data?.result);
     return (
       <ScrollView>
         <Modal
@@ -114,23 +140,36 @@ const ResultDisplay: React.FC = () => {
           isVisible={visible}
         >
           <Card>
-            <Text>{modalObject?.NAVN_BOMSTASJON}</Text>
+            <Card.Title h3={true}>{modalObject?.NAVN_BOMSTASJON} </Card.Title>
+            <Card.Divider></Card.Divider>
+            <Text>Fylke: {modalObject?.FYLKE}</Text>
+            <Text>Kommune: {modalObject?.KOMMUNE}</Text>
+            <Text>Vegtype: {modalObject?.VEGKATEGORI}</Text>
+            <Text>Takst stor bil: {modalObject?.TAKST_STOR_BIL}</Text>
+            <Text>Takst liten bil: {modalObject?.TAKST_LITEN_BIL}</Text>
             <Text>
+              Eier:{" "}
               {modalObject?.NAVN_BOMPENGEANLEGG_FRA_CS
                 ? modalObject?.NAVN_BOMPENGEANLEGG_FRA_CS
-                : "Ukjent eier"}
+                : "Ukjent"}
             </Text>
             <Text>
+              Nettside:{" "}
               {modalObject?.LINK_TIL_BOMSTASJON
                 ? modalObject?.LINK_TIL_BOMSTASJON
-                : "Ukjent nettside"}
+                : "Ukjent"}
             </Text>
           </Card>
         </Modal>
+        <Button
+          disabled={page < 1}
+          color="red"
+          title="Bla tilbake"
+          onPress={() => setPage(page - 1)}
+        ></Button>
         {data.result.bomstasjoner.map((bomData: bomData) => (
           <View key={bomData.id}>
             <Pressable onPress={() => enableOverlay(bomData)}>
-              {console.log("id:" + bomData?.id)}
               <BomCard
                 name={bomData.NAVN_BOMSTASJON}
                 fylke={bomData.FYLKE}
@@ -141,16 +180,11 @@ const ResultDisplay: React.FC = () => {
             </Pressable>
           </View>
         ))}
-
         <Button
+          color="green"
           disabled={data.result.numberOfDocuments <= (page + 1) * 10}
-          title="load more!"
+          title="Se flere!"
           onPress={() => setPage(page + 1)}
-        ></Button>
-        <Button
-          disabled={page < 1}
-          title="go back!"
-          onPress={() => setPage(page - 1)}
         ></Button>
       </ScrollView>
     );

@@ -19,39 +19,32 @@ const SearchBox = ({ navigation }: any) => {
    * Dispatch to redux store to update the state
    */
   const toggleFilter = (type: string) => {
+    if (filterType == "All") {
+    }
     filterType == type
       ? dispatch(changeType("null"))
       : dispatch(changeType(type));
   };
 
-  /*Checks if a filter is specified, and a search text exist */
+  /*Checks if a filter is specified, and a search text exist. If the filtertype is all, the lenght requirement is skipped */
   const isInvalid = () => {
-    if (filterType == "null" || filterText.length < 1) {
-      return true;
-    } else {
-      return false;
-    }
+    return (
+      filterType == "null" || (!(filterType == "All") && filterText.length < 1)
+    );
   };
 
   return (
     <Card>
-      <Card.Title>TollTelleren</Card.Title>
+      <Card.Title h2={true}>Bom Basen</Card.Title>
       <TextInput
-        style={styles.searchBar}
-        placeholder="Type Here..."
-        onChangeText={(text) => dispatch(changeSearch(text))}
+        style={filterType === "All" ? styles.disabled : styles.searchBar}
+        placeholder="Oslo..."
+        onChangeText={(text) =>
+          filterType === "All" ? null : dispatch(changeSearch(text))
+        }
         value={filterText}
         //lightTheme={true}
       ></TextInput>
-      <Button
-        onPress={() => {
-          navigation.navigate("Results");
-        }}
-        disabled={isInvalid()}
-        title="Search!"
-        color="#841584"
-        accessibilityLabel="Click me to submit the search!"
-      />
       <View style={styles.filterContainer}>
         <CheckBox
           center
@@ -73,27 +66,28 @@ const SearchBox = ({ navigation }: any) => {
           center
           checkedIcon="dot-circle-o"
           uncheckedIcon="circle-o"
-          title="Temp"
-          checked={filterType === "Kommune"}
-          onPress={() => toggleFilter("Kommune")}
-        />
-        <CheckBox
-          center
-          checkedIcon="dot-circle-o"
-          uncheckedIcon="circle-o"
-          title="Temp"
-          checked={filterType === "Kommune"}
-          onPress={() => toggleFilter("Kommune")}
+          title="Se alt"
+          checked={filterType === "All"}
+          onPress={() => toggleFilter("All")}
         />
       </View>
+
+      <Card.Divider></Card.Divider>
+      <Button
+        onPress={() => {
+          navigation.navigate("Resultat");
+        }}
+        disabled={isInvalid()}
+        title="Søk!"
+        color="#0066cc"
+        accessibilityLabel="Trykk på meg for å sende inn søket!"
+      />
     </Card>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    //width: "80vw",
-  },
+  container: {},
   baseText: {
     fontFamily: "Cochin",
   },
@@ -102,11 +96,24 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   searchBar: {
+    height: 50,
+    fontSize: 25,
     borderWidth: 1,
+    marginBottom: 10,
+    borderColor: "lightgray",
   },
   filterContainer: {
     display: "flex",
     flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  disabled: {
+    height: 50,
+    fontSize: 25,
+    borderWidth: 1,
+    marginBottom: 10,
+    backgroundColor: "lightgray",
+    borderColor: "lightgray",
   },
 });
 
