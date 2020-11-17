@@ -1,6 +1,20 @@
 import { gql } from "@apollo/client";
 import { filterType } from "../typer";
 
+/*
+This is a helper file for storing the querys and supplying the right query with the getQuery method 
+*/
+
+function getQuery(filterType: filterType) {
+  if (filterType == "Fylke") {
+    return FylkeQuery;
+  } else if (filterType == "Kommune") {
+    return KommuneQuery;
+  } else if (filterType == "All") {
+    return AllQuery;
+  }
+}
+
 const FylkeQuery = gql`
   query boms(
     $text: String
@@ -81,16 +95,5 @@ const AllQuery = gql`
     }
   }
 `;
-
-function getQuery(filterType: filterType) {
-  //Prepares query based on filtertype. TODO: extract this to tidy up file
-  if (filterType == "Fylke") {
-    return FylkeQuery;
-  } else if (filterType == "Kommune") {
-    return KommuneQuery;
-  } else if (filterType == "All") {
-    return AllQuery;
-  }
-}
 
 export { getQuery };
