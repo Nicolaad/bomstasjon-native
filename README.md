@@ -7,21 +7,23 @@
 1. klon prosjektet fra Gitlab
 
    - SSH:  
-     `git clone git@gitlab.stud.idi.ntnu.no:nicolaad/prosjekt-4-lettmelk.git`
+     `git clone git@gitlab.stud.idi.ntnu.no:it2810-h20/team-00/p4-14/prosjekt-4-lettmelk.git`
    - HTTPS:  
-     `git clone https://gitlab.stud.idi.ntnu.no/nicolaad/prosjekt-4-lettmelk.git`
+     `git clone https://gitlab.stud.idi.ntnu.no/it2810-h20/team-00/p4-14/prosjekt-4-lettmelk.git`
 
 2. gå inn i client mappen til prosjektet  
    `cd prosjekt-4-lettmelk/client`
-3. Start expo  
+3. kjør npm install
+   `npm install`
+4. Start expo  
    `expo start`
-4. Kjør som normalt!
+5. Kjør som normalt!
 
-Du trenger ikke å sette opp noe backend, da denne kjøres på NTNU sine VM'er. Om Applikasjonen ikke skulle fungere optimalt (E.g at dataen ikke lastes) så kan man prøve å kjøre det med NTNU sin VPN. Om du har trøbbel med å kjøre prosjektet på egen mobil, så anbefaler jeg fra egen erfaring å kjøre expo med tunnel mode.
+Du trenger ikke å sette opp noe backend, da denne kjøres på NTNU sine VM'er. Om applikasjonen ikke skulle fungere optimalt (E.g at dataen ikke lastes) så kan man prøve å kjøre det med VPN koblet til NTNU. Om du har trøbbel med å kjøre prosjektet på egen mobil, så anbefaler jeg fra egen erfaring å kjøre expo med tunnel mode.
 
 ## Hva er egentlig dette prosjektet?
 
-Kort forklart, så er dette en frontend bomstasjonssøkemotor skrevet i React Native. Den lar deg søke på bomstasjoner, basert på et par parametere. Man kan derretter scrolle forbi dem, og om man ønsker - så kan de også sorteres etter taksttype, både stigende og synkende. Det er også mulig å se mer om en bomstasjon med å trykke på en av bomkortene. Dette vil vise et modalvindu med litt ekstra informasjon, som nettside og eieren av bomstasjonen.
+Kort forklart, så er dette en frontend bomstasjonssøkemotor skrevet med React Native. Den lar deg søke på bomstasjoner, basert på et par parametere. Man kan deretter scrolle gjennom dem. De kan også sorteres etter taksttype, både stigende og synkende. Det er også mulig å se mer om en bomstasjon med å trykke på en av bomkortene. Dette vil vise et modalvindu med litt ekstra informasjon, som nettside og eieren av bomstasjonen.
 
 ## Innhold of funksjonalitet
 
@@ -29,15 +31,15 @@ Kort forklart, så er dette en frontend bomstasjonssøkemotor skrevet i React Na
 
 Søkemotoren er komponentet SearchBox, som består av et inputfelt, 3 checkbokser og en knapp. Når brukeren interagerer med inputfeltet, eller checkboksene, så lagres dette i en Redux slice. Det er først når brukeren trykker submitt, at han blir tatt til en resultatsiden. Jeg valgte å splitte søkesiden fra resultatsiden, ettersom det ga meg en god grunn til å lære mer om react navigation.
 
-### Resultatsettet
+### Resultatsiden
 
-Resultatsiden (ResultDisplay komponentet) leser fra Redux staten kaller en query med en Apollo client. Jeg valgte å bruke Apollo, ettersom den ble beskrevet som lettvint å sette opp med minimal konfigurasjon. I tillegg sørger den for automatisk caching og tilrettelegger for pagination.
+Resultatsiden (ResultDisplay komponentet) leser fra Redux staten og kaller en query med en Apollo client. Jeg valgte å bruke Apollo, ettersom den ble beskrevet som lettvint å sette opp med minimal konfigurasjon. I tillegg sørger den for automatisk caching og tilrettelegger for pagination.
 
-Resultatet fra Queryen lastes som BomCard komponenter, og lastes ned i grupper på 10 og 10. Om man scroller neders vil man kunne trykke seg til neste side, gitt det er flere resultater.
+Resultatet fra Queryen lastes som BomCard komponenter som vises i en scrollview. Disse lastes dynamisk ned i grupper på 10 og 10. Om man scroller neders vil man kunne trykke seg til neste side, gitt det er flere resultater.
 
 ### Rafinering av resultat
 
-Øverst på resultatsiden vil man finne to knappegrupper. Disse lar deg sortere bomstasjonene basert på taksttype og om den er stigende eller synkende. Rafineringen vil gjøre en query med Apollo, men det er fordi jeg ikke så noen god måte å implementere det på uten å fjerne dynamisk nedlasting. For hvem vil sortere noe basert på de 10 første resultatene? Merk at tidligere querys blir lagret i cache av Apollo, og vil kunne lastes inn uten en ny spørring.
+Øverst på resultatsiden vil man finne to knappegrupper. Disse lar deg sortere bomstasjonene basert på taksttype og om den er stigende eller synkende. Rafineringen vil gjøre en query med Apollo, men det er fordi jeg ikke så noen god måte å implementere dette på uten å fjerne dynamisk nedlasting. Dette ettersom man ville måtte hente hele resultatsettet før det er nyttig å rafinere det (f.eks sortering). Merk at tidligere querys blir lagret i cache av Apollo, og vil kunne lastes inn uten å måtte utføre en ny spørring til serveren.
 
 ### Teknologier
 
