@@ -5,14 +5,15 @@
 **NB! For å kjøre prosjektet, så må du sørge for at du har expo installert.**
 
 1. klon prosjektet fra Gitlab
-   _ SSH:
-   `git clone git@gitlab.stud.idi.ntnu.no:nicolaad/prosjekt-4-lettmelk.git`
-   _ HTTPS:
-   `git clone https://gitlab.stud.idi.ntnu.no/nicolaad/prosjekt-4-lettmelk.git`
 
-2. gå inn i client mappen til prosjektet
+   - SSH:  
+     `git clone git@gitlab.stud.idi.ntnu.no:nicolaad/prosjekt-4-lettmelk.git`
+   - HTTPS:  
+     `git clone https://gitlab.stud.idi.ntnu.no/nicolaad/prosjekt-4-lettmelk.git`
+
+2. gå inn i client mappen til prosjektet  
    `cd prosjekt-4-lettmelk/client`
-3. Start expo
+3. Start expo  
    `expo start`
 4. Kjør som normalt!
 
@@ -67,7 +68,7 @@ Utviklingen har for det meste foregått med en Android mobil, men jeg fikk også
 
 Dette er en test som går over hovedfunskjonene og sjekker at det ser ut til å stemme.
 
-Målet er å finne eieren av den dyreste bommstasjonen for trucker i Stavanger kommune (finnøytunnellen). Bildene illustrerer resutatet etter å ha utført oppgaven.
+Målet er å finne eieren av den dyreste bommstasjonen for trucker i Stavanger kommune (finnøytunnellen). Derretter blar man en side frem og en tilbake, og ser at man er på samme plass. Bildene illustrerer resutatet etter å ha utført oppgaven.
 
 0. Åpne siden  
    <img src="./client/tests/images/0.jpg" height="300"/>
