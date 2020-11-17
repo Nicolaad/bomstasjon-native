@@ -4,20 +4,20 @@
 
 **NB! For å kjøre prosjektet, så må du sørge for at du har expo installert.**
 
-1. klon prosjektet fra Gitlab (Koble til NTNU med VPN om du ikke får klonet)
+1. Klon prosjektet fra Gitlab (Koble til NTNU med VPN om du ikke får klonet)
 
    - SSH:  
      `git clone git@gitlab.stud.idi.ntnu.no:it2810-h20/team-00/p4-14/prosjekt-4-lettmelk.git`
    - HTTPS:  
      `git clone https://gitlab.stud.idi.ntnu.no/it2810-h20/team-00/p4-14/prosjekt-4-lettmelk.git`
 
-2. gå inn i client mappen til prosjektet  
+2. Gå inn i client mappen til prosjektet  
    `cd prosjekt-4-lettmelk/client`
-3. kjør npm install 
+3. Kjør npm install 
    `npm install`
 4. Start expo  
    `expo start`
-5. Kjør som normalt!
+5. Prosjektet er nå oppe. Prøv å kjør det på mobilen din!:)
 
 Du trenger ikke å sette opp noe backend, da denne kjøres på NTNU sine VM'er. Om applikasjonen ikke skulle fungere optimalt (E.g at dataen ikke lastes) så kan man prøve å kjøre det med VPN koblet til NTNU. Om du har trøbbel med å kjøre prosjektet på egen mobil, så anbefaler jeg fra egen erfaring å kjøre expo med connection satt til tunnel.
 
