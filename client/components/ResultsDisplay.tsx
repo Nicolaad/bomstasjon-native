@@ -77,7 +77,7 @@ const ResultDisplay: React.FC = () => {
       },
     });
 
-    //error/loading handling
+    //if query gives an error or is loading
     if (loading) {
       return <ActivityIndicator size="large" />;
     } else if (error) {

@@ -4,6 +4,10 @@ import { Card } from "react-native-elements";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { BomCardProps } from "./helpers/types";
 
+/**
+ * Displays a card detailing the most important features of a bomstasjon,
+ *  in the style mimicking a real bomstasjon-sign
+ */
 const BomCard: React.FC<BomCardProps> = (props: BomCardProps) => {
   return (
     <Card
@@ -17,6 +21,7 @@ const BomCard: React.FC<BomCardProps> = (props: BomCardProps) => {
         marginBottom: 3,
       }}
     >
+      {/*The title and fylke/kommune display */}
       <Card.Title h3={true} style={styles.header}>
         {props.name}
       </Card.Title>
@@ -25,6 +30,8 @@ const BomCard: React.FC<BomCardProps> = (props: BomCardProps) => {
       </Card.FeaturedSubtitle>
 
       <Card.Divider style={styles.divider} />
+
+      {/*The part detailing the price */}
       <View style={styles.priceTable}>
         <View style={styles.vehicleRow}>
           <MaterialCommunityIcons
@@ -55,6 +62,7 @@ const BomCard: React.FC<BomCardProps> = (props: BomCardProps) => {
   );
 };
 
+//setting the styles for the various paths
 const styles = StyleSheet.create({
   header: { color: "white" },
   divider: { backgroundColor: "white", paddingVertical: "1%" },
