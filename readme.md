@@ -70,20 +70,20 @@ Dette er en test som går over hovedfunskjonene og sjekker at det ser ut til å 
 Målet er å finne eieren av den dyreste bommstasjonen for trucker i Stavanger kommune (finnøytunnellen). Bildene illustrerer resutatet etter å ha utført oppgaven.
 
 0. Åpne siden
-   ![](./test/images/0.png)
+   ![test 0](./test/images/0.png)
 1. Skriver Stavanger i Søkefeltet og huker av kommune
-   ![](./test/images/1.png)
+   ![Test 1](./test/images/1.png)
 2. Trykker på "Søk!" knappen
-   ![](./test/images/2.png)
+   ![Test 2](./test/images/2.png)
 3. Trykker på "Truck" og "Synkende"
-   ![](./test/images/3.png)
+   ![Test 3](./test/images/3.png)
 4. Klikke på det første bomkortet
-   ![](./test/images/4.png)
+   ![Test 4](./test/images/4.png)
 5. Se navnet til eieren i modalen
-   ![](./test/images/5.png)
+   ![Test 5](./test/images/5.png)
 6. Klikke ut av modalen
-   ![](./test/images/6.png)
+   ![Test 6](./test/images/6.png)
 7. Scroll nederst og klikk neste side. Scroll øverst, se at det er den 11 dyreste øverst. Trykk tilbake. Se at man er tilbake til før steg 4
-   ![](./test/images/7.png)
+   ![Test 7](./test/images/7.png)
 
 Denne testen ble utført både på en Android (samsung A70) og en Iphone 8. Da oppdaget jeg at knappene fra react native ikke var like på begge enhetene, som gjorde at jeg benyttet meg mer av react native elements, som sørget for en likhet mellom systemene.
