@@ -70,7 +70,7 @@ Dette er en test som går over hovedfunskjonene og sjekker at det ser ut til å 
 Målet er å finne eieren av den dyreste bommstasjonen for trucker i Stavanger kommune (finnøytunnellen). Bildene illustrerer resutatet etter å ha utført oppgaven.
 
 0. Åpne siden
-   <img src="./client/test/images/1.png" height="400"/>
+   <img src="./client/tests/images/1.png" height="400"/>
 1. Skriver Stavanger i Søkefeltet og huker av kommune
    ![Test 1](./tests/images/1.png)
 2. Trykker på "Søk!" knappen
