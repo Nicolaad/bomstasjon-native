@@ -80,13 +80,13 @@ Målet er å finne eieren av den dyreste bommstasjonen for trucker i Stavanger k
    <img src="./client/tests/images/3.jpg" height="300"/>
 3. Trykker på "Truck" og "Synkende"  
    <img src="./client/tests/images/5.jpg" height="300"/>
-4. Klikke på det første bomkortet  
+4. Klikke på det første bomkortet, se natnet til eieren.  
    <img src="./client/tests/images/6.jpg" height="300"/>
-5. Se navnet til eieren i modalen  
-   <img src="./client/tests/images/7.jpg" height="300"/>
 6. Klikke ut av modalen  
+   <img src="./client/tests/images/7.jpg" height="300"/>
+7. Scroll nederst og klikk neste side. Se at man er øverst, og ser på den 11 dyreste bommen.  
    <img src="./client/tests/images/8.jpg" height="300"/>
-7. Scroll nederst og klikk neste side. Scroll øverst, se at det er den 11 dyreste øverst. Trykk tilbake. Se at man er tilbake til før steg 4
+8. Trykk tilbake. Se at man er tilbake til steg 6  
    <img src="./client/tests/images/9.jpg" height="300"/>
 
    Denne testen ble utført både på en Android (samsung A70) og en Iphone 8. Da oppdaget jeg at knappene fra react native ikke var like på begge enhetene, som gjorde at jeg benyttet meg mer av react native elements, som sørget for en likhet mellom systemene.
