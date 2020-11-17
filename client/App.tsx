@@ -26,9 +26,9 @@ export default function App() {
             <Stack.Screen
               name="Search"
               component={SearchBox}
-              options={{ title: "Welcome" }}
+              options={{ title: "Søk" }}
             />
-            <Stack.Screen name="Results" component={ResultsDisplay} />
+            <Stack.Screen name="Resultat" component={ResultsDisplay} />
           </Stack.Navigator>
         </NavigationContainer>
       </ApolloProvider>

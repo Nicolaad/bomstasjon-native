@@ -86,6 +86,25 @@ const ResultDisplay: React.FC = () => {
         }
       }
     `;
+  } else if (filterType == "All") {
+    query = gql`
+      query boms($offset: Int) {
+        result: getBomstasjoner(start: $offset) {
+          numberOfDocuments
+          bomstasjoner {
+            id
+            NAVN_BOMSTASJON
+            FYLKE
+            KOMMUNE
+            TAKST_STOR_BIL
+            TAKST_LITEN_BIL
+            NAVN_BOMPENGEANLEGG_FRA_CS
+            LINK_TIL_BOMSTASJON
+            VEGKATEGORI
+          }
+        }
+      }
+    `;
   } else {
     query = null;
   }
@@ -142,6 +161,12 @@ const ResultDisplay: React.FC = () => {
             </Text>
           </Card>
         </Modal>
+        <Button
+          disabled={page < 1}
+          color="red"
+          title="Bla tilbake"
+          onPress={() => setPage(page - 1)}
+        ></Button>
         {data.result.bomstasjoner.map((bomData: bomData) => (
           <View key={bomData.id}>
             <Pressable onPress={() => enableOverlay(bomData)}>
@@ -156,14 +181,10 @@ const ResultDisplay: React.FC = () => {
           </View>
         ))}
         <Button
+          color="green"
           disabled={data.result.numberOfDocuments <= (page + 1) * 10}
-          title="load more!"
+          title="Se flere!"
           onPress={() => setPage(page + 1)}
-        ></Button>
-        <Button
-          disabled={page < 1}
-          title="go back!"
-          onPress={() => setPage(page - 1)}
         ></Button>
       </ScrollView>
     );
