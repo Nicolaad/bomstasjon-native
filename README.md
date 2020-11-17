@@ -29,7 +29,7 @@ Kort forklart, så er dette en frontend bomstasjonssøkemotor skrevet med React 
 
 ### Oppsett
 
-Mesteparten av koden ligger under `client/components`. Der ligger SearchBox og Resultdisplay komponentene, som representerer hver sin side til applikasjonen. Der ligger også BomCard som representerer et dataobjekt i ResultsDisplay. Det ligger også to mapper, state og helpers. Inni state ligger Redux staten som komponentene benytter. I helpers query.tsx som holder hjelpefunksjoner som gir GraphQl spørringer, i tilegg til filen types.tsx som definerer typer. Merk at også App.tsx i Client-mappa er modifisert for å ha Apollo og Redux state, samt sette opp React Navigation.
+Mesteparten av koden ligger under `client/components`. Der ligger SearchBox og Resultdisplay komponentene, som representerer hver sin side til applikasjonen. Der finnes også BomCard.tsx som representerer et dataobjekt i ResultsDisplay. Der ligger også to mapper, state og helpers. Inni state ligger Redux staten som komponentene benytter. I helpers finnes query.tsx som holder hjelpefunksjoner som gir GraphQl spørringer, i tilegg til filen types.tsx som definerer typescript typer. Merk at også App.tsx i Client-mappa er modifisert for å ha Apollo og Redux state, samt sette opp React Navigation.
 
 ### Søkemotor (SearchBox)
 
