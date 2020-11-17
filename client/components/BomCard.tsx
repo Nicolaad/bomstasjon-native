@@ -22,6 +22,7 @@ const BomCard: React.FC<BomCardProps> = (props: BomCardProps) => {
         borderColor: "white",
         borderRadius: 5,
         display: "flex",
+        marginBottom: 3,
       }}
     >
       <Card.Title h3={true} style={styles.header}>
@@ -64,7 +65,7 @@ const BomCard: React.FC<BomCardProps> = (props: BomCardProps) => {
 
 const styles = StyleSheet.create({
   header: { color: "white" },
-  divider: { backgroundColor: "white", height: "2%", width: "100%" },
+  divider: { backgroundColor: "white", paddingVertical: "1%" },
   text: { color: "white", flex: 1, fontSize: 40 },
   subtitle: { display: "flex", alignSelf: "center", color: "white" },
   priceTable: {

@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import BomCard from "./BomCard";
 import { useQuery, gql } from "@apollo/client";
-import { ActivityIndicator, Text, Button, View, Pressable } from "react-native";
+import {
+  ActivityIndicator,
+  Text,
+  Button,
+  View,
+  Pressable,
+  StyleSheet,
+} from "react-native";
 import { useSelector } from "react-redux";
 import { selectText, selectType } from "./state/filterSlice";
 import Modal from "react-native-modal";
@@ -105,55 +112,60 @@ const ResultDisplay: React.FC = () => {
       console.log(error);
       return <Text>Whops, an error occured! {error}</Text>;
     }
-
+    console.log(data?.result);
     return (
-      <View>
-        <ScrollView contentContainerStyle={{ paddingBottom: 60 }}>
-          <Modal
-            onBackdropPress={() => setVisible(false)}
-            style={{ flex: 1 }}
-            isVisible={visible}
-          >
-            <Card>
-              <Text>{modalObject?.NAVN_BOMSTASJON}</Text>
-              <Text>
-                {modalObject?.NAVN_BOMPENGEANLEGG_FRA_CS
-                  ? modalObject?.NAVN_BOMPENGEANLEGG_FRA_CS
-                  : "Ukjent eier"}
-              </Text>
-              <Text>
-                {modalObject?.LINK_TIL_BOMSTASJON
-                  ? modalObject?.LINK_TIL_BOMSTASJON
-                  : "Ukjent nettside"}
-              </Text>
-            </Card>
-          </Modal>
-          {data.result.bomstasjoner.map((bomData: bomData) => (
-            <View key={bomData.id}>
-              <Pressable onPress={() => enableOverlay(bomData)}>
-                <BomCard
-                  name={bomData.NAVN_BOMSTASJON}
-                  fylke={bomData.FYLKE}
-                  kommune={bomData.KOMMUNE}
-                  carPrice={bomData.TAKST_LITEN_BIL}
-                  truckPrice={bomData.TAKST_STOR_BIL}
-                ></BomCard>
-              </Pressable>
-            </View>
-          ))}
-
-          <Button
-            disabled={data.result.numberOfDocuments <= (page + 1) * 10}
-            title="load more!"
-            onPress={() => setPage(page + 1)}
-          ></Button>
-          <Button
-            disabled={page < 1}
-            title="go back!"
-            onPress={() => setPage(page - 1)}
-          ></Button>
-        </ScrollView>
-      </View>
+      <ScrollView>
+        <Modal
+          onBackdropPress={() => setVisible(false)}
+          style={{ flex: 1 }}
+          isVisible={visible}
+        >
+          <Card>
+            <Card.Title h3={true}>{modalObject?.NAVN_BOMSTASJON} </Card.Title>
+            <Card.Divider></Card.Divider>
+            <Text>Fylke: {modalObject?.FYLKE}</Text>
+            <Text>Kommune: {modalObject?.KOMMUNE}</Text>
+            <Text>Vegtype: {modalObject?.VEGKATEGORI}</Text>
+            <Text>Takst stor bil: {modalObject?.TAKST_STOR_BIL}</Text>
+            <Text>Takst liten bil: {modalObject?.TAKST_LITEN_BIL}</Text>
+            <Text>
+              Eier:{" "}
+              {modalObject?.NAVN_BOMPENGEANLEGG_FRA_CS
+                ? modalObject?.NAVN_BOMPENGEANLEGG_FRA_CS
+                : "Ukjent"}
+            </Text>
+            <Text>
+              Nettside:{" "}
+              {modalObject?.LINK_TIL_BOMSTASJON
+                ? modalObject?.LINK_TIL_BOMSTASJON
+                : "Ukjent"}
+            </Text>
+          </Card>
+        </Modal>
+        {data.result.bomstasjoner.map((bomData: bomData) => (
+          <View key={bomData.id}>
+            <Pressable onPress={() => enableOverlay(bomData)}>
+              <BomCard
+                name={bomData.NAVN_BOMSTASJON}
+                fylke={bomData.FYLKE}
+                kommune={bomData.KOMMUNE}
+                carPrice={bomData.TAKST_LITEN_BIL}
+                truckPrice={bomData.TAKST_STOR_BIL}
+              ></BomCard>
+            </Pressable>
+          </View>
+        ))}
+        <Button
+          disabled={data.result.numberOfDocuments <= (page + 1) * 10}
+          title="load more!"
+          onPress={() => setPage(page + 1)}
+        ></Button>
+        <Button
+          disabled={page < 1}
+          title="go back!"
+          onPress={() => setPage(page - 1)}
+        ></Button>
+      </ScrollView>
     );
   }
 };
