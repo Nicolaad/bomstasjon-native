@@ -4,7 +4,7 @@
 
 **NB! For å kjøre prosjektet, så må du sørge for at du har expo installert.**
 
-1. klon prosjektet fra Gitlab
+1. klon prosjektet fra Gitlab (Koble til NTNU med VPN om du ikke får klonet)
 
    - SSH:  
      `git clone git@gitlab.stud.idi.ntnu.no:it2810-h20/team-00/p4-14/prosjekt-4-lettmelk.git`
@@ -19,7 +19,7 @@
    `expo start`
 5. Kjør som normalt!
 
-Du trenger ikke å sette opp noe backend, da denne kjøres på NTNU sine VM'er. Om applikasjonen ikke skulle fungere optimalt (E.g at dataen ikke lastes) så kan man prøve å kjøre det med VPN koblet til NTNU. Om du har trøbbel med å kjøre prosjektet på egen mobil, så anbefaler jeg fra egen erfaring å kjøre expo med tunnel mode.
+Du trenger ikke å sette opp noe backend, da denne kjøres på NTNU sine VM'er. Om applikasjonen ikke skulle fungere optimalt (E.g at dataen ikke lastes) så kan man prøve å kjøre det med VPN koblet til NTNU. Om du har trøbbel med å kjøre prosjektet på egen mobil, så anbefaler jeg fra egen erfaring å kjøre expo med connection satt til tunnel.
 
 ## Hva er egentlig dette prosjektet?
 
