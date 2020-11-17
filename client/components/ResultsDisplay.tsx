@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import BomCard from "./BomCard";
 import { useQuery } from "@apollo/client";
-import { ActivityIndicator, Text, Button, View, Pressable } from "react-native";
+import { ActivityIndicator, Text, View, Pressable } from "react-native";
 import { useSelector } from "react-redux";
 import { selectText, selectType } from "./state/filterSlice";
 import Modal from "react-native-modal";
-import { Card, ButtonGroup } from "react-native-elements";
+import { Card, ButtonGroup, Button } from "react-native-elements";
 import { getQuery } from "./helpers/querys";
 import { filterType, takstType, bomData, queryData } from "./helpers/types";
 
@@ -136,7 +136,7 @@ const ResultDisplay: React.FC = () => {
         {/*goes back to previous page on press, by changing page stat */}
         <Button
           disabled={page < 1}
-          color="red"
+          buttonStyle={{ backgroundColor: "red", height: 60 }}
           title="Bla tilbake"
           onPress={() => setPage(page - 1)}
         ></Button>
@@ -158,7 +158,8 @@ const ResultDisplay: React.FC = () => {
 
         {/*Turn to the next page by changing page state */}
         <Button
-          color="green"
+          containerStyle={{ marginTop: 20 }}
+          buttonStyle={{ backgroundColor: "green", height: 70 }}
           disabled={data.result.numberOfDocuments <= (page + 1) * 10}
           title="Se flere!"
           onPress={() => setPage(page + 1)}
