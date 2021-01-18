@@ -1,18 +1,21 @@
+## Merknad:  
+Dette prosjektet var en oppgave til faget IT2805, hvor målet var å bygge en native frontend for en søkedatabase vi hadde laget. Repoet er importert direkte fra en privat gitlab, som kan føre til feil i dokumentasjonen.
+
 # Dokumentasjon - Prosjekt 4
 
 ## Hvordan å kjøre prosjektet
 
 **NB! For å kjøre prosjektet, så må du sørge for at du har expo installert.**
 
-1. Klon prosjektet fra Gitlab (Koble til NTNU med VPN om du ikke får klonet)
+1. Klon prosjektet fra Gitlab
 
    - SSH:  
-     `git clone git@gitlab.stud.idi.ntnu.no:it2810-h20/team-00/p4-14/prosjekt-4-lettmelk.git`
+     `git clone git@github.com:Nicolaad/bomstasjon-native.git`
    - HTTPS:  
-     `git clone https://gitlab.stud.idi.ntnu.no/it2810-h20/team-00/p4-14/prosjekt-4-lettmelk.git`
+     `git clone https://github.com/Nicolaad/bomstasjon-native.git`
 
 2. Gå inn i client mappen til prosjektet  
-   `cd prosjekt-4-lettmelk/client`
+   `bomstasjon-native/client`
 3. Kjør npm install 
    `npm install`
 4. Start expo  
